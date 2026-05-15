@@ -4,6 +4,16 @@ from django.utils.text import slugify
 from unidecode import unidecode
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(unidecode(self.title))
+        super().save(*args, **kwargs)
+
+
 class Actor(models.Model):
     last_name = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
@@ -24,7 +34,8 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
-    actor = models.ForeignKey(Actor, related_name='movie', on_delete=models.CASCADE, blank=True)
+    actor = models.ManyToManyField(Actor, related_name='movies', blank=True)
+    category = models.ManyToManyField(Category, related_name='movies', blank=True)
 
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -36,5 +47,6 @@ class Movie(models.Model):
         if not self.slug:
             self.slug = slugify(unidecode(self.title))
         super().save(*args, **kwargs)
+
 
 
