@@ -26,7 +26,7 @@ class Actor(models.Model):
 class Movie(models.Model):
     actor = models.ForeignKey(Actor, related_name='movie', on_delete=models.CASCADE, blank=True)
 
-    title = models.CharField(max_lenhth=200)
+    title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     release_date = models.DateField()
     slug = models.SlugField(unique=True, blank=True)
