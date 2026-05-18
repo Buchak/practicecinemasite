@@ -6,12 +6,15 @@ from unidecode import unidecode
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(unidecode(self.title))
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
 
 class Actor(models.Model):
@@ -20,7 +23,7 @@ class Actor(models.Model):
     middle_name = models.CharField(max_length=50, blank=True)
     birth_date = models.DateField()
     description = models.TextField(blank=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     photo = models.ImageField(upload_to='actors_photo/', blank=True, null=True)
 
     def __str__(self):
@@ -34,7 +37,7 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
-    actor = models.ManyToManyField(Actor, related_name='movies', blank=True)
+    actors = models.ManyToManyField(Actor, related_name='movies', blank=True)
     category = models.ManyToManyField(Category, related_name='movies', blank=True)
 
     title = models.CharField(max_length=200)
@@ -47,6 +50,9 @@ class Movie(models.Model):
         if not self.slug:
             self.slug = slugify(unidecode(self.title))
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
 
 
