@@ -80,10 +80,11 @@ class ActorAdmin(admin.ModelAdmin):
     list_display_links = ('pk', 'full_name', 'birth_date')
     ordering = ('-pk',)
     search_fields = ('pk', 'full_name', 'birth_date')
+    readonly_fields = ('photo_preview',)
     inlines = [ActorMovieInline]
     fieldsets = (
         (None, {
-            'fields': ('photo', 'last_name', 'first_name', 'middle_name', 'birth_date'),
+            'fields': ('photo_preview', 'photo', 'last_name', 'first_name', 'middle_name', 'birth_date'),
         }),
         ('Description', {
             'fields': ('description',),
@@ -98,9 +99,16 @@ class ActorAdmin(admin.ModelAdmin):
     def description_short(self, obj: models.Movie):
         if len(obj.description) < 48:
             return obj.description
-        return obj.description[48:] + '...'
+        return obj.description[:48] + '...'
 
     def full_name(self, obj: models.Actor):
         middle_name = '' if obj.middle_name == '' else obj.middle_name
         return f'{obj.last_name} {obj.first_name} {middle_name}'
+
+    @admin.display(description='Photo Image')
+    def photo_preview(self, obj: models.Actor):
+        if obj.photo:
+            return mark_safe(
+                f'<img src="{obj.photo.url}" width="200" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />')
+        return "Not image"
 

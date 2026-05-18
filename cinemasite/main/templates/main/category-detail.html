@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+	<h1>{{ categor.title }}</h1>
+{% endblock %}
+
+{% block body %}
+	<h1>Category {{ category.title }}</h1>
+
+    {% for movie in category.movies.all %}
+    	<ul>
+        <li>
+            <h3>{{ movie.title }}</h3>
+
+            {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" width="200" alt="Постер {{ movie.title }}" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+            {% else %}
+                <img src="{% static 'images/no-photo.png' %}" width="200" alt="No Photo" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+            {% endif %}
+
+            <p>Release Date: {{ movie.release_date }}</p>
+            <p>{{ movie.description }}</p>
+        </li>
+        </ul>
+    {% endfor %}
+
+
+{% endblock %}
