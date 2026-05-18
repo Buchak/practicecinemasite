@@ -50,7 +50,7 @@ class MovieAdmin(admin.ModelAdmin):
     def description_short(self, obj: models.Movie):
         if len(obj.description) < 48:
             return obj.description
-        return obj.description[48:] + '...'
+        return obj.description[:48] + '...'
 
 
 class ActorMovieInline(admin.TabularInline):
