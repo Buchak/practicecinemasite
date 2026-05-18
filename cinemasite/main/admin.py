@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from . import models
 
@@ -30,9 +31,10 @@ class MovieAdmin(admin.ModelAdmin):
     search_fields = ('pk', 'title', 'release_date')
     inlines = [ActorInline]
     filter_horizontal = ('category',)
+    readonly_fields = ('poster_preview',)
     fieldsets = (
         (None, {
-            'fields': ('poster', 'title', 'category'),
+            'fields': ('poster_preview', 'poster', 'title', 'category'),
         }),
         ('Release Date', {
             'fields': ('release_date',)
@@ -51,6 +53,13 @@ class MovieAdmin(admin.ModelAdmin):
         if len(obj.description) < 48:
             return obj.description
         return obj.description[:48] + '...'
+
+    @admin.display(description='Poster Image')
+    def poster_preview(self, obj: models.Movie):
+        if obj.poster:
+            return mark_safe(
+                f'<img src="{obj.poster.url}" width="200" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />')
+        return "Not image"
 
 
 class ActorMovieInline(admin.TabularInline):
