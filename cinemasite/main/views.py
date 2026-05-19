@@ -20,3 +20,11 @@ def category_detail(request: HttpRequest, category_slug) -> HttpResponse:
         'category': category
     }
     return render(request, 'main/category-detail.html', context=context)
+
+
+def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
+    movie = get_object_or_404(models.Movie, slug=movie_slug)
+    context = {
+        'movie': movie,
+    }
+    return render(request, 'main/movie-detail.html', context=context)
