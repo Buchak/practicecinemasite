@@ -37,6 +37,13 @@ def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
     return render(request, 'main/movie-detail.html', context=context)
 
 
+def actors_list(request: HttpRequest) -> HttpRequest:
+    context = {
+        'actors': models.Actor.objects.all(),
+    }
+    return render(request, 'main/actors-list.html', context=context)
+
+
 def actor_detail(request: HttpRequest, actor_slug) -> HttpResponse:
     actor = get_object_or_404(models.Actor.objects.prefetch_related('movies'), slug=actor_slug)
     context = {
