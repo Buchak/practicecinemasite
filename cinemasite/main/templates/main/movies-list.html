@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    Movies
+{% endblock %}
+
+{% block body %}
+	<h1>Movies</h1>
+
+    <ul>
+        {% for movie in movies %}
+        	<li>
+                <a href="{% url 'main:movie_detail' movie_slug=movie.slug %}">{{ movie.title }}</a>
+            </li>
+
+            {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" width="200" alt="Постер {{ movie.title }}" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+            {% else %}
+                <img src="{% static 'images/no-photo.png' %}" width="200" alt="No Photo" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+            {% endif %}
+        {% endfor %}
+        
+    </ul>
+
+{% endblock %}

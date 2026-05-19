@@ -22,6 +22,13 @@ def category_detail(request: HttpRequest, category_slug) -> HttpResponse:
     return render(request, 'main/category-detail.html', context=context)
 
 
+def movies_list(request: HttpRequest) -> HttpResponse:
+    context = {
+        'movies': models.Movie.objects.all(),
+    }
+    return render(request, 'main/movies-list.html', context=context)
+
+
 def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
     movie = get_object_or_404(models.Movie.objects.prefetch_related('actors'), slug=movie_slug)
     context = {
