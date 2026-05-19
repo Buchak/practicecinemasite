@@ -8,8 +8,8 @@
 {% block body %}
 	<h1>Category {{ category.title }}</h1>
 
+    <ul>
     {% for movie in category.movies.all %}
-    	<ul>
         <li>
             <h3><a href="{% url 'main:movie_detail' movie_slug=movie.slug %}">{{ movie.title }}</a></h3>
 
@@ -21,8 +21,8 @@
 
             <p>Release Date: {{ movie.release_date }}</p>
         </li>
-        </ul>
     {% endfor %}
+    </ul>
 
 
 {% endblock %}

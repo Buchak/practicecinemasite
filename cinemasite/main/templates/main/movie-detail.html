@@ -14,6 +14,19 @@
         <img src="{% static 'images/no-photo.png' %}" width="200" alt="No Photo" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
     {% endif %}
 
+    <h2>Actors:</h2>
+    <ul>
+        {% if movie.actors.all %}
+        	{% for actor in movie.actors.all %}
+            <li>
+            <p><a href="#">{{ actor }}</a></p>
+            </li>
+            {% endfor %}
+        {% else %}
+            <h2>Did not add actors</h2>
+        {% endif %}
+    </ul>
+
     <p>Release Date: {{ movie.release_date }}</p>
     <p>{{ movie.description }}</p>
 {% endblock %}

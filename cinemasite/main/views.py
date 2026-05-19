@@ -23,7 +23,7 @@ def category_detail(request: HttpRequest, category_slug) -> HttpResponse:
 
 
 def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
-    movie = get_object_or_404(models.Movie, slug=movie_slug)
+    movie = get_object_or_404(models.Movie.objects.prefetch_related('actors'), slug=movie_slug)
     context = {
         'movie': movie,
     }
