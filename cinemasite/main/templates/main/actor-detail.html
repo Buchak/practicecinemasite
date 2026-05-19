@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+	{{ actor }}
+{% endblock %}
+
+{% block body %}
+	<h1>{{ actor }}</h1>
+
+    {% if actor.photo %}
+        <img src="{{ actor.photo.url }}" width="200" alt="Photo {{ actor }}" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+    {% else %}
+        <img src="{% static 'images/no-photo.png' %}" width="200" alt="No Photo" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+    {% endif %}
+
+    <p>Birth Date: {{ actor.birth_date }}</p>
+
+    <p>{{ actor.description }}</p>
+
+    {% if actor.movies.all %}
+        <h2>Filmography:</h2>
+    	<ul>
+            {% for movie in actor.movies.all %}
+                <li>
+                    <a href="{% url 'main:movie_detail' movie_slug=movie.slug %}">{{ movie.title }}</a>
+                </li>
+    	    {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No Film</p>
+    {% endif %}
+
+{% endblock %}

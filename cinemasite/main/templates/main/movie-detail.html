@@ -19,7 +19,7 @@
         {% if movie.actors.all %}
         	{% for actor in movie.actors.all %}
             <li>
-            <p><a href="#">{{ actor }}</a></p>
+            <p><a href="{% url 'main:actor_detail' actor_slug=actor.slug %}">{{ actor }}</a></p>
             </li>
             {% endfor %}
         {% else %}
