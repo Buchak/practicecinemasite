@@ -38,8 +38,15 @@ def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
 
 
 def create_movie(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        form = forms.MovieForm(request.POST, request.FILES)
+        if form.is_valid():
+            models.Movie.objects.create(**form.cleaned_data)
+    else:
+        form = forms.MovieForm()
+
     context = {
-        'form': forms.MovieForm(),
+        'form': form,
     }
     return render(request, 'main/create-movie.html', context=context)
 
@@ -60,8 +67,15 @@ def actor_detail(request: HttpRequest, actor_slug) -> HttpResponse:
 
 
 def create_actor(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        form = forms.ActorForm(request.POST, request.FILES)
+        if form.is_valid():
+            models.Actor.objects.create(**form.cleaned_data)
+    else:
+        form = forms.ActorForm()
+
     context = {
-        'form': forms.ActorForm(),
+        'form': form,
     }
     return render(request, 'main/create-movie.html', context=context)
 
