@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404
 
-from . import models
+from . import models, forms
 
 
 def categories_list(request: HttpRequest) -> HttpResponse:
@@ -50,3 +50,10 @@ def actor_detail(request: HttpRequest, actor_slug) -> HttpResponse:
         'actor': actor,
     }
     return render(request, 'main/actor-detail.html', context=context)
+
+
+def create_movie(request: HttpRequest) -> HttpResponse:
+    context = {
+        'form': forms.MovieForm(),
+    }
+    return render(request, 'main/create-movie.html', context=context)
