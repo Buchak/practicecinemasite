@@ -77,7 +77,7 @@ def create_actor(request: HttpRequest) -> HttpResponse:
     context = {
         'form': form,
     }
-    return render(request, 'main/create-movie.html', context=context)
+    return render(request, 'main/create-actor.html', context=context)
 
 
 
