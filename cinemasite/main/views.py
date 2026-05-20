@@ -37,6 +37,13 @@ def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
     return render(request, 'main/movie-detail.html', context=context)
 
 
+def create_movie(request: HttpRequest) -> HttpResponse:
+    context = {
+        'form': forms.MovieForm(),
+    }
+    return render(request, 'main/create-movie.html', context=context)
+
+
 def actors_list(request: HttpRequest) -> HttpRequest:
     context = {
         'actors': models.Actor.objects.all(),
@@ -52,8 +59,11 @@ def actor_detail(request: HttpRequest, actor_slug) -> HttpResponse:
     return render(request, 'main/actor-detail.html', context=context)
 
 
-def create_movie(request: HttpRequest) -> HttpResponse:
+def create_actor(request: HttpRequest) -> HttpResponse:
     context = {
-        'form': forms.MovieForm(),
+        'form': forms.ActorForm(),
     }
     return render(request, 'main/create-movie.html', context=context)
+
+
+

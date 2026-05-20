@@ -8,6 +8,7 @@ class MovieForm(forms.ModelForm):
         model = models.Movie
         fields = ('title', 'poster', 'release_date', 'description')
 
+
 class ActorForm(forms.ModelForm):
     class Meta:
         model = models.Actor
