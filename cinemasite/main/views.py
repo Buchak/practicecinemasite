@@ -36,19 +36,32 @@ class CategoryDetailView(DetailView):
     context_object_name = 'category'
 
 
-def movies_list(request: HttpRequest) -> HttpResponse:
-    context = {
-        'movies': models.Movie.objects.all(),
-    }
-    return render(request, 'main/movies-list.html', context=context)
+# def movies_list(request: HttpRequest) -> HttpResponse:
+#     context = {
+#         'movies': models.Movie.objects.all(),
+#     }
+#     return render(request, 'main/movies-list.html', context=context)
 
 
-def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
-    movie = get_object_or_404(models.Movie.objects.prefetch_related('actors'), slug=movie_slug)
-    context = {
-        'movie': movie,
-    }
-    return render(request, 'main/movie-detail.html', context=context)
+class MovieListView(ListView):
+    template_name = 'main/movies-list.html'
+    model = models.Movie
+    context_object_name = 'movies'
+
+
+# def movie_detail(request: HttpRequest, movie_slug) -> HttpResponse:
+#     movie = get_object_or_404(models.Movie.objects.prefetch_related('actors'), slug=movie_slug)
+#     context = {
+#         'movie': movie,
+#     }
+#     return render(request, 'main/movie-detail.html', context=context)
+
+
+class MovieDetailView(DetailView):
+    template_name = 'main/movie-detail.html'
+    model = models.Movie
+    context_object_name = 'movie'
+    slug_url_kwarg = 'movie_slug'
 
 
 def create_movie(request: HttpRequest) -> HttpResponse:
