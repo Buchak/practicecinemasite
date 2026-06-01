@@ -78,19 +78,32 @@ def create_movie(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/create-movie.html', context=context)
 
 
-def actors_list(request: HttpRequest) -> HttpRequest:
-    context = {
-        'actors': models.Actor.objects.all(),
-    }
-    return render(request, 'main/actors-list.html', context=context)
+# def actors_list(request: HttpRequest) -> HttpRequest:
+#     context = {
+#         'actors': models.Actor.objects.all(),
+#     }
+#     return render(request, 'main/actors-list.html', context=context)
 
 
-def actor_detail(request: HttpRequest, actor_slug) -> HttpResponse:
-    actor = get_object_or_404(models.Actor.objects.prefetch_related('movies'), slug=actor_slug)
-    context = {
-        'actor': actor,
-    }
-    return render(request, 'main/actor-detail.html', context=context)
+class ActorListView(ListView):
+    template_name = 'main/actors-list.html'
+    model = models.Actor
+    context_object_name = 'actors'
+
+
+# def actor_detail(request: HttpRequest, actor_slug) -> HttpResponse:
+#     actor = get_object_or_404(models.Actor.objects.prefetch_related('movies'), slug=actor_slug)
+#     context = {
+#         'actor': actor,
+#     }
+#     return render(request, 'main/actor-detail.html', context=context)
+
+
+class ActorDetailView(DetailView):
+    template_name = 'main/actor-detail.html'
+    model = models.Actor
+    context_object_name = 'actor'
+    slug_url_kwarg = 'actor_slug'
 
 
 def create_actor(request: HttpRequest) -> HttpResponse:
