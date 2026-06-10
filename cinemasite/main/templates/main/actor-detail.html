@@ -8,6 +8,14 @@
 {% block body %}
 	<h1>{{ actor }}</h1>
 
+    <div>
+        <a href="{% url 'main:actor_update' actor_slug=actor.slug %}">Actor Update</a>
+    </div>
+    <div>
+        <a href="{% url 'main:actor_delete' actor_slug=actor.slug %}">Actor Delete</a>
+    </div>
+    <br>
+
     {% if actor.photo %}
         <img src="{{ actor.photo.url }}" width="200" alt="Photo {{ actor }}" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
     {% else %}

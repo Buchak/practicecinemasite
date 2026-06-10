@@ -48,6 +48,7 @@ class MovieUpdateView(UpdateView):
     model = models.Movie
     form_class = forms.MovieForm
     slug_url_kwarg = 'movie_slug'
+    template_name_suffix = '_update_form'
 
     def get_success_url(self):
         return reverse(
@@ -86,6 +87,22 @@ class ActorCreateView(CreateView):
         )
 
 
+class ActorUpdateView(UpdateView):
+    model = models.Actor
+    form_class = forms.ActorForm
+    slug_url_kwarg = 'actor_slug'
+    template_name_suffix = '_update_form'
 
+    def get_success_url(self):
+        return reverse(
+            'main:actor_detail',
+            kwargs={'actor_slug': self.object.slug}
+        )
+
+
+class ActorDeleteView(DeleteView):
+    model = models.Actor
+    slug_url_kwarg = 'actor_slug'
+    success_url = reverse_lazy('main:actors_list')
 
 

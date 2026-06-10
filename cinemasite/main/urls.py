@@ -17,4 +17,6 @@ urlpatterns = [
     path('actors/', views.ActorListView.as_view(), name='actors_list'),
     path('create-actor/', views.ActorCreateView.as_view(), name='create_actor'),
     path('actors/<slug:actor_slug>/', views.ActorDetailView.as_view(), name='actor_detail'),
+    path('actors/<slug:actor_slug>/update', views.ActorUpdateView.as_view(), name='actor_update'),
+    path('actors/<slug:actor_slug>/delete', views.ActorDeleteView.as_view(), name='actor_delete'),
 ]
