@@ -3,9 +3,13 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from rest_framework import permissions
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.filters import SearchFilter, OrderingFilter
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 from . import models, forms, serializers
 
@@ -13,6 +17,15 @@ from . import models, forms, serializers
 class CategoryListAPIView(ListAPIView):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
+    filetr_backends = [
+        SearchFilter,
+        OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    search_fields = ['title',]
+    ordering_fields = ['pk', 'title']
+    ordering = ['-pk']
+    filterset_fields = ['title',]
 
 
 class CategoryListView(ListView):
@@ -31,6 +44,30 @@ class CategoryDetailView(DetailView):
     template_name = 'main/category-detail.html'
     model = models.Category
     context_object_name = 'category'
+
+
+class MovieViewSet(ModelViewSet):
+    queryset = models.Movie.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    filter_backends = [
+        OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    ordering = ['-pk',]
+    filterset_fields = [
+        'title',
+        'category',
+        'release_date',
+    ]
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return serializers.MovieSerializer
+        if self.action == 'retrieve':
+            return serializers.MovieDetailSerializer
+
+        return serializers.MovieDetailSerializer
 
 
 class MovieListView(ListView):
@@ -74,6 +111,37 @@ class MovieDeleteView(DeleteView):
     model = models.Movie
     slug_url_kwarg = 'movie_slug'
     success_url = reverse_lazy('main:movies_list')
+
+
+class ActorViewSet(ModelViewSet):
+    queryset = models.Actor.objects.all()
+
+    filter_backends = [
+        SearchFilter,
+        OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    search_fields = [
+        'first_name',
+        'last_name',
+        'middle_name',
+    ]
+    ordering = ['-pk',]
+    filterset_fields = [
+        'last_name',
+        'first_name',
+        'middle_name',
+        'birth_date',
+    ]
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return serializers.ActorSerializer
+        if self.action == 'retrieve':
+            return serializers.ActorDetailSerializer
+
+        return serializers.ActorDetailSerializer
+
 
 
 class ActorListView(ListView):

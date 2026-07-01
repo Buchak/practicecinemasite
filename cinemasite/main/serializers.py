@@ -18,22 +18,22 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Movie
-        fields = ['pk', 'title', 'poster', 'category', 'release_date']
+        fields = ['pk', 'slug', 'title', 'poster', 'category', 'release_date']
 
 
 class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Movie
-        fields = ['pk', 'title', 'poster', 'category', 'release_date', 'actors', 'description']
+        fields = ['pk', 'slug', 'title', 'poster', 'category', 'release_date', 'actors', 'description']
 
 
-class ActorSerializers(serializers.ModelSerializer):
+class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Actor
-        fields = ['pk', 'last_name', 'first_name', 'middle_name', 'photo', 'birth_date']
+        fields = ['pk', 'slug', 'last_name', 'first_name', 'middle_name', 'photo', 'birth_date']
 
 
 class ActorDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Actor
-        fields = ['pk', 'last_name', 'first_name', 'middle_name', 'photo', 'birth_date', 'description']
+        fields = ['pk', 'slug', 'last_name', 'first_name', 'middle_name', 'photo', 'birth_date', 'description']

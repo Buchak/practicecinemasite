@@ -1,12 +1,21 @@
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
 
 from . import views
+
+routers_movies = DefaultRouter()
+routers_movies.register('movies', views.MovieViewSet)
+routers_actors = DefaultRouter()
+routers_actors.register('actors', views.ActorViewSet)
 
 app_name = 'main'
 
 urlpatterns = [
     path('api/category/', views.CategoryListAPIView.as_view(), name='category_list_api'),
     path('api/category/<slug:slug>', views.CategoryDetailAPIView.as_view(), name='category_detail_api'),
+    path('api/movie/', include(routers_movies.urls)),
+    path('api/actor/', include(routers_actors.urls)),
 
 
     path('category/', views.CategoryListView.as_view(), name='categories_list'),
