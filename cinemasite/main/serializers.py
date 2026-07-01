@@ -3,7 +3,7 @@ from rest_framework import serializers
 from . import models
 
 
-class CategorySerializer(serializers.ModelSerialiezer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
         fields = ['title', 'slug']
@@ -15,7 +15,7 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
         fields = ['title', 'slug', 'movies']
 
 
-class MovieSerializer(serializers.ModelSerialiezer):
+class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Movie
         fields = ['title', 'poster', 'category', 'release_date']
