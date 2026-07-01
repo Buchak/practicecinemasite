@@ -1,6 +1,7 @@
 from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 
 from . import views
 
@@ -12,6 +13,7 @@ routers_actors.register('actors', views.ActorViewSet)
 app_name = 'main'
 
 urlpatterns = [
+    path('api/token/', obtain_auth_token, name='api_token_auth'),
     path('api/category/', views.CategoryListAPIView.as_view(), name='category_list_api'),
     path('api/category/<slug:slug>', views.CategoryDetailAPIView.as_view(), name='category_detail_api'),
     path('api/movie/', include(routers_movies.urls)),

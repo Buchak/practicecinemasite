@@ -115,6 +115,7 @@ class MovieDeleteView(DeleteView):
 
 class ActorViewSet(ModelViewSet):
     queryset = models.Actor.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
     filter_backends = [
         SearchFilter,
@@ -141,7 +142,6 @@ class ActorViewSet(ModelViewSet):
             return serializers.ActorDetailSerializer
 
         return serializers.ActorDetailSerializer
-
 
 
 class ActorListView(ListView):
