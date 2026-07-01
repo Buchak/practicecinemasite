@@ -6,34 +6,34 @@ from . import models
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
-        fields = ['title', 'slug']
+        fields = ['pk', 'title', 'slug']
 
 
 class CategoryDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
-        fields = ['title', 'slug', 'movies']
+        fields = ['pk', 'title', 'slug', 'movies']
 
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Movie
-        fields = ['title', 'poster', 'category', 'release_date']
+        fields = ['pk', 'title', 'poster', 'category', 'release_date']
 
 
 class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Movie
-        fields = ['title', 'poster', 'category', 'release_date', 'actors', 'description']
+        fields = ['pk', 'title', 'poster', 'category', 'release_date', 'actors', 'description']
 
 
 class ActorSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Actor
-        fields = ['last_name', 'first_name', 'middle_name', 'photo', 'birth_date']
+        fields = ['pk', 'last_name', 'first_name', 'middle_name', 'photo', 'birth_date']
 
 
 class ActorDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Actor
-        fields = ['last_name', 'first_name', 'middle_name', 'photo', 'birth_date', 'description']
+        fields = ['pk', 'last_name', 'first_name', 'middle_name', 'photo', 'birth_date', 'description']

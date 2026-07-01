@@ -24,6 +24,7 @@ class CategoryListView(ListView):
 class CategoryDetailAPIView(RetrieveAPIView):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategoryDetailSerializer
+    lookup_field = 'slug'
 
 
 class CategoryDetailView(DetailView):
