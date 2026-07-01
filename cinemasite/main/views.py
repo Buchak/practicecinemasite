@@ -1,11 +1,18 @@
-
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from rest_framework.generics import ListAPIView
+
+from rest_framework.viewsets import ModelViewSet
 
 from . import models, forms
+
+
+class CategoryViewSet(ListAPIView):
+    queryset = models.Category.objects.all()
+
 
 
 class CategoryListView(ListView):
