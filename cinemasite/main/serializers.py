@@ -9,6 +9,12 @@ class CategorySerializer(serializers.ModelSerialiezer):
         fields = ['title', 'slug']
 
 
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Category
+        fields = ['title', 'slug', 'movies']
+
+
 class MovieSerializer(serializers.ModelSerialiezer):
     class Meta:
         model = models.Movie

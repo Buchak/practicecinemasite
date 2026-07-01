@@ -3,22 +3,27 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from rest_framework.viewsets import ModelViewSet
 
-from . import models, forms
+from . import models, forms, serializers
 
 
-class CategoryViewSet(ListAPIView):
+class CategoryListAPIView(ListAPIView):
     queryset = models.Category.objects.all()
-
+    serializer_class = serializers.CategorySerializer
 
 
 class CategoryListView(ListView):
     template_name = 'main/categories-list.html'
     model = models.Category
     context_object_name = 'categories'
+
+
+class CategoryDetailAPIView(RetrieveAPIView):
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategoryDetailSerializer
 
 
 class CategoryDetailView(DetailView):

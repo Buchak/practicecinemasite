@@ -5,6 +5,10 @@ from . import views
 app_name = 'main'
 
 urlpatterns = [
+    path('api/category/', views.CategoryListAPIView.as_view(), name='category_list_api'),
+    path('api/category/<slug:slug>', views.CategoryDetailAPIView.as_view(), name='category_detail_api'),
+
+
     path('category/', views.CategoryListView.as_view(), name='categories_list'),
     path('category/<slug:slug>/', views.CategoryDetailView.as_view(), name='category_detail'),
 
